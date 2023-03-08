@@ -4,6 +4,15 @@
 
   tasks:
 
+  #################################
+  # install some default packages
+  #################################
+  - name: get some basic apt packages
+    apt:
+      name: ['git', 'cron']
+      update_cache: yes
+      state: latest
+
   ##################################
   # User that hosts the application
   ##################################
@@ -74,7 +83,7 @@
   #########################
   - name: Install Apache and PHP Packages
     apt:
-      name: ['apache2', 'php8.1', 'php8.1-mysql', 'libapache2-mod-php8.1']
+      name: ['apache2', 'php8.1', 'php8.1-mysql', 'libapache2-mod-php8.1', 'php8.1-common', 'php8.1-curl', 'php8.1-gd', 'php8.1-xml', 'php8.1-intl', 'php8.1-zip']
       update_cache: yes
       state: latest
 

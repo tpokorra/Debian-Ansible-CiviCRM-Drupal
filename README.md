@@ -22,3 +22,4 @@ Create inventory.yml, similar to inventory-sample.yml
 Run on my workstation:
 
     ansible-playbook -i inventory.yml playbook-init.yml
+    ansible-playbook -i inventory.yml playbook-install.yml
