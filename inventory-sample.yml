@@ -1,0 +1,12 @@
+civicrm:
+  vars:
+    ansible_user: root
+  hosts:
+    civi.local:
+      domain: "civi.local"
+      documentroot: "/var/www/civi"
+      db_name: "civi"
+      db_username: "civi"
+      db_password: "topsecret"
+      mysql_root_password: "supersecret"
+
