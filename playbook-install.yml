@@ -186,7 +186,7 @@
       block: |
         global $civicrm_paths;
         $civicrm_paths['civicrm.packages']['path'] = '/home/pacs/{{pac}}/users/{{user}}/drupal-civicrm/vendor/civicrm/civicrm-packages/';
-        $civicrm_paths['civicrm.packages']['url'] = 'https://{{domain}}/libraries/civicrm/packages/';
+        $civicrm_paths['civicrm.packages']['url'] = '{{scheme}}://{{domain}}/libraries/civicrm/packages/';
 
   - name: install civicrm with cv
     become: yes
@@ -194,7 +194,7 @@
     # cmsBaseUrl is unavailable or malformed. Consider setting it explicitly: see https://github.com/civicrm/civicrm-core/blob/master/setup/plugins/checkRequirements/CheckBaseUrl.civi-setup.php#L25
     # path of cv needs to be part of base url
     shell: |
-      php8.1 /home/pacs/{{pac}}/users/{{user}}/doms/{{domain}}/cv.phar core:install --cms-base-url="https://{{domain}}" --lang="de_DE" || exit -1
+      php8.1 /home/pacs/{{pac}}/users/{{user}}/doms/{{domain}}/cv.phar core:install --cms-base-url="{{scheme}}://{{domain}}" --lang="de_DE" || exit -1
       touch /home/pacs/{{pac}}/users/{{user}}/.civiinstalled
     args:
       executable: /bin/bash

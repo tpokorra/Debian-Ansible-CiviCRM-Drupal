@@ -134,6 +134,11 @@
   - name: Enable fpm configuration
     shell: /usr/sbin/a2enconf php8.1-fpm
 
+  - name: Restart FPM
+    service:
+      name: php8.1-fpm
+      state: restarted
+
   - name: Reload Apache
     service:
       name: apache2

@@ -7,6 +7,8 @@ civicrm:
       user: "civicrm"
       userhome: "/home/pacs/{{pac}}/users/{{user}}"
       password: invalid
+
+      scheme: http
       domain: "civi.local"
       documentroot: "{{userhome}}/doms/{{domain}}/htdocs-ssl"
 
