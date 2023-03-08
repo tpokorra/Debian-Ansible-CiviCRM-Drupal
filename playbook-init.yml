@@ -4,6 +4,54 @@
 
   tasks:
 
+  ##################################
+  # User that hosts the application
+  ##################################
+  - name: create unix user
+    user:
+      name: "{{pac}}-{{user}}"
+      shell: /bin/bash
+      home: "{{userhome}}"
+      groups: www-data
+      append: yes
+
+  - name: add www-data to user's group
+    user:
+      name: "www-data"
+      groups: "{{pac}}-{{user}}"
+      append: yes
+
+  - name: create doms directory
+    file:
+      path: "{{userhome}}/doms"
+      state: directory
+      mode: '0755'
+      owner: '{{pac}}-{{user}}'
+      group: 'www-data'
+
+  - name: create domain directory
+    file:
+      path: "{{userhome}}/doms/{{domain}}"
+      state: directory
+      mode: '0755'
+      owner: '{{pac}}-{{user}}'
+      group: 'www-data'
+
+  - name: create htdocs-ssl directory
+    file:
+      path: "{{userhome}}/doms/{{domain}}/htdocs-ssl"
+      state: directory
+      mode: '0755'
+      owner: '{{pac}}-{{user}}'
+      group: 'www-data'
+
+  - name: Create document root
+    file:
+      path: "{{documentroot}}"
+      state: directory
+      owner: "www-data"
+      mode: "0755"
+
   #################################
   # Setup repository for newer php
   #################################
@@ -30,13 +78,6 @@
       update_cache: yes
       state: latest
 
-  - name: Create document root
-    file:
-      path: "{{documentroot}}"
-      state: directory
-      owner: "www-data"
-      mode: "0755"
-
   - name: Set up Apache virtualhost
     template:
       src: "templates/domain.conf"
@@ -62,16 +103,25 @@
       update_cache: yes
       state: latest
 
+  - name: Check if mysql root password is unset
+    shell: |
+      mysql -u root -p'{{mysql_root_password}}' -h localhost -e "quit"
+    changed_when: false
+    ignore_errors: true
+    register: root_pwd_check
+
   - name: Sets the root password
     mysql_user:
       name: root
       password: "{{mysql_root_password}}"
       login_unix_socket: /var/run/mysqld/mysqld.sock
+    when: root_pwd_check.rc != 0
 
   - name: Removes the MySQL test database
     mysql_db:
       name: test
       state: absent
+      login_unix_socket: /var/run/mysqld/mysqld.sock
       login_user: root
       login_password: "{{mysql_root_password}}"
 
@@ -88,5 +138,6 @@
       name: "{{db_username}}"
       password: "{{db_password}}"
       priv: "{{db_name}}.*:ALL"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
       login_user: root
       login_password: "{{mysql_root_password}}"

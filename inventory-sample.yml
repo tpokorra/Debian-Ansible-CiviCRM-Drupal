@@ -3,8 +3,12 @@ civicrm:
     ansible_user: root
   hosts:
     civi.local:
+      pac: "xyz00"
+      user: "civicrm"
+      userhome: "/home/pacs/{{pac}}/users/{{user}}"
       domain: "civi.local"
-      documentroot: "/var/www/civi"
+      documentroot: "{{userhome}}/doms/{{domain}}/htdocs-ssl"
+
       db_name: "civi"
       db_username: "civi"
       db_password: "topsecret"
