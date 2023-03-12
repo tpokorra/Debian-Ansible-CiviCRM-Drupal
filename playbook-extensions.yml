@@ -58,6 +58,9 @@
       remote_src: yes
       dest: /home/pacs/{{pac}}/users/{{user}}/drupal-civicrm/web/sites/default/files/civicrm/ext
 
+  ################################################
+  ## add extensions for Donations
+  ################################################
   - name: install extension DonRec
     become: yes
     become_user: "{{pac}}-{{user}}"
@@ -76,3 +79,14 @@
       remote_src: yes
       dest: /home/pacs/{{pac}}/users/{{user}}/drupal-civicrm/web/sites/default/files/civicrm/ext
 
+  ################################################
+  ## add extensions for Theme
+  ################################################
+  - name: install extension ShoreDitch
+    become: yes
+    become_user: "{{pac}}-{{user}}"
+    unarchive:
+      creates: /home/pacs/{{pac}}/users/{{user}}/drupal-civicrm/web/sites/default/files/civicrm/ext/org.civicrm.shoreditch-1.0.0-beta.12
+      src: https://github.com/civicrm/org.civicrm.shoreditch/archive/refs/tags/1.0.0-beta.12.tar.gz
+      remote_src: yes
+      dest: /home/pacs/{{pac}}/users/{{user}}/drupal-civicrm/web/sites/default/files/civicrm/ext
