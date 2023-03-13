@@ -23,3 +23,4 @@ Run on my workstation:
 
     ansible-playbook -i inventory.yml playbook-init.yml
     ansible-playbook -i inventory.yml playbook-install.yml
+    ansible-playbook -i inventory.yml playbook-extensions.yml
