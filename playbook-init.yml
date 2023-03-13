@@ -91,7 +91,7 @@
   #########################
   - name: Install Apache and PHP Packages
     apt:
-      name: ['apache2', 'php8.1', 'php8.1-mysql', 'libapache2-mod-php8.1', 'php8.1-common', 'php8.1-fpm', 'php8.1-curl', 'php8.1-gd', 'php8.1-xml', 'php8.1-mb', 'php8.1-intl', 'php8.1-zip']
+      name: ['apache2', 'php8.1', 'php8.1-mysql', 'libapache2-mod-php8.1', 'php8.1-common', 'php8.1-fpm', 'php8.1-curl', 'php8.1-gd', 'php8.1-xml', 'php8.1-mbstring', 'php8.1-intl', 'php8.1-zip']
       update_cache: yes
       state: latest
 
